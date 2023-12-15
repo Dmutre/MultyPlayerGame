@@ -4,7 +4,9 @@
   "description": "Multiplayer fire game",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.js",
+    "start:dev": "nodemon main.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,11 @@
   "bugs": {
     "url": "https://github.com/Dmutre/MultyPlayerGame/issues"
   },
-  "homepage": "https://github.com/Dmutre/MultyPlayerGame#readme"
+  "homepage": "https://github.com/Dmutre/MultyPlayerGame#readme",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "nodemon": "^3.0.2",
+    "socket.io": "^4.7.2"
+  }
 }
