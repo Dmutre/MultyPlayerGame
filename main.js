@@ -21,6 +21,7 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   console.log('User connected');
+  io.emit('playersUpdate', backendPlayers);
 
   socket.on('newPlayer', (player) => {
     player.id = socket.id;

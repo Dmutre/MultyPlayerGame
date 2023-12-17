@@ -40,6 +40,7 @@ body {
   align-items: center;
   height: 120px;
   padding: 10px;
+  z-index: 10;
 }
 
 .start input[type="text"] {
