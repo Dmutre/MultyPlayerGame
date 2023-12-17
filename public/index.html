@@ -3,9 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles/index.css" type="text/css">
   <title>Multyplayer game</title>
 </head>
 <body>
-  Hello
+  <div class="container">
+    <div class="arena">
+
+    </div>
+    <div class="start">
+      <input type="text" id="playerName">
+      <button class="button" onclick="newPlayer()">Start</button>
+    </div>
+  </div>
 </body>
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script src="scripts/index.js"></script>
+<script src="scripts/classes/Player.js"></script>
 </html>

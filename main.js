@@ -11,8 +11,27 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server);
 
+const backendPlayers = {};
+
+app.use(express.static('public'));
+
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'public/index.html'));
+});
+
+io.on('connection', (socket) => {
+  console.log('User connected');
+
+  socket.on('newPlayer', (player) => {
+    player.id = socket.id;
+    backendPlayers[player.id] = player;
+    console.log(backendPlayers);
+    io.emit('playersUpdate', backendPlayers);
+  });
+
+  socket.on('keyDown', (players) => {
+    console.log(players);
+  })
 });
 
 server.listen(PORT, () => {
