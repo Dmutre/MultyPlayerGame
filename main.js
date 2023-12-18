@@ -31,16 +31,19 @@ io.on('connection', (socket) => {
     io.emit('playersUpdate', backendPlayers);
   });
 
-  socket.on('playerMove', (key) => {
+  socket.on('playerMove', (keys) => {
     if (!backendPlayers[socket.id]) return;
     const player = backendPlayers[socket.id];
-    if(key === 'A' || key === 'a') {
+    if(keys.match(/a/i)) {
       player.x -= PLAYER_SPEED;
-    } else if(key === 'd' || key === 'D') {
+    } 
+    if(keys.match(/d/i)) {
       player.x += PLAYER_SPEED;
-    } else if(key === 's' || key === 'S') {
+    }
+    if(keys.match(/s/i)) {
       player.y += PLAYER_SPEED;
-    } else if(key === 'w' || key === 'W') {
+    } 
+    if(keys.match(/w/i)) {
       player.y -= PLAYER_SPEED;
     }
     io.emit('playerMoved', player);

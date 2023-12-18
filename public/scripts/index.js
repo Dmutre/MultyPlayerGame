@@ -5,7 +5,7 @@ const start = document.getElementsByClassName('start')[0];
 const socket = io();
 
 const players = {};
-let currentKey;
+let currentKey = '';
 
 socket.on('playersUpdate', (backendPlayers) => {
   for(const backendPlayer of Object.values(backendPlayers)) {
@@ -26,15 +26,16 @@ function newPlayer() {
 }
 
 window.addEventListener('keydown', (event) => {
-  currentKey = event.key;
+  currentKey += event.key;
 });
 
 window.addEventListener('keyup', (event) => {
-  currentKey = null;
+  currentKey = currentKey.replace(new RegExp(event.key, 'gi'), '');
+  console.log(currentKey);
 });
 
 setInterval(() => {
-  if(currentKey) {
+  if(currentKey.length !== 0) {
     socket.emit('playerMove', currentKey);
   }
 }, 15);
