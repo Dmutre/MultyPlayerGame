@@ -10,10 +10,9 @@ let currentKey;
 socket.on('playersUpdate', (backendPlayers) => {
   for(const backendPlayer of Object.values(backendPlayers)) {
     if(!players[backendPlayer.id]) {
-      const player = new Player(backendPlayer.name);
-      player.id = backendPlayer.id;
-      players[backendPlayer.id] = player;
-      arena.appendChild(player.draw());
+      const newPlayer = new Enemy(backendPlayer);
+      players[backendPlayer.id] = newPlayer;
+      arena.appendChild(newPlayer.draw());
     }
   }
   console.log(players);

@@ -1,10 +1,10 @@
-class Player {
-  constructor(name) {
-    this.id;
+class Enemy {
+  constructor({name, id, color, x, y}) {
+    this.id = id;
     this.name = name;
-    this.x = window.innerWidth / 2;
-    this.y = window.innerHeight / 2;
-    this.color = '#' + Math.floor(Math.random()*16777215).toString(16);
+    this.x = x;
+    this.y = y;
+    this.color = color;
   }
 
   draw() {
