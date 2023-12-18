@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'public/index.html'));
 });
 
-io.on('connection', (socket) => {
+io.on('connect', (socket) => {
   console.log('User connected');
   io.emit('playersUpdate', backendPlayers);
 
@@ -47,6 +47,13 @@ io.on('connection', (socket) => {
       player.y -= PLAYER_SPEED;
     }
     io.emit('playerMoved', player);
+  });
+
+  socket.on('disconnect', () => {
+    delete backendPlayers[socket.id];
+    console.log('I am here');
+    console.log(backendPlayers);
+    io.emit('playersUpdate');
   });
 });
 

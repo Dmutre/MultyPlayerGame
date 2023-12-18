@@ -8,13 +8,23 @@ const players = {};
 let currentKey = '';
 
 socket.on('playersUpdate', (backendPlayers) => {
-  for(const backendPlayer of Object.values(backendPlayers)) {
-    if(!players[backendPlayer.id]) {
+  const backendPlayerIds = Object.keys(backendPlayers);
+
+  for (const player of Object.values(players)) {
+    if (!backendPlayerIds.includes(player.id)) {
+      $(`#${player.id}`).remove();
+      delete players[player.id];
+    }
+  }
+
+  for (const backendPlayer of Object.values(backendPlayers)) {
+    if (!players[backendPlayer.id]) {
       const newPlayer = new Enemy(backendPlayer);
       players[backendPlayer.id] = newPlayer;
       arena.appendChild(newPlayer.draw());
     }
   }
+
   console.log(players);
 });
 
