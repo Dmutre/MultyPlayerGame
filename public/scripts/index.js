@@ -5,10 +5,10 @@ const start = document.getElementsByClassName('start')[0];
 const socket = io();
 
 const players = {};
+let currentKey;
 
 socket.on('playersUpdate', (backendPlayers) => {
   for(const backendPlayer of Object.values(backendPlayers)) {
-    console.log('I add new player');
     if(!players[backendPlayer.id]) {
       const player = new Player(backendPlayer.name);
       player.id = backendPlayer.id;
@@ -25,3 +25,23 @@ function newPlayer() {
   const player = new Player(input.value)
   socket.emit('newPlayer', player);
 }
+
+window.addEventListener('keydown', (event) => {
+  currentKey = event.key;
+});
+
+window.addEventListener('keyup', (event) => {
+  currentKey = null;
+});
+
+setInterval(() => {
+  if(currentKey) {
+    socket.emit('playerMove', currentKey);
+  }
+}, 15);
+
+socket.on('playerMoved', (player) => {
+  const localPlayer = document.getElementById(player.id);
+  localPlayer.style.top = player.y + 'px';
+  localPlayer.style.left = player.x + 'px';
+});

@@ -12,6 +12,7 @@ const server = createServer(app);
 const io = new Server(server);
 
 const backendPlayers = {};
+const PLAYER_SPEED = 5;
 
 app.use(express.static('public'));
 
@@ -30,9 +31,20 @@ io.on('connection', (socket) => {
     io.emit('playersUpdate', backendPlayers);
   });
 
-  socket.on('keyDown', (players) => {
-    console.log(players);
-  })
+  socket.on('playerMove', (key) => {
+    if (!backendPlayers[socket.id]) return;
+    const player = backendPlayers[socket.id];
+    if(key === 'A' || key === 'a') {
+      player.x -= PLAYER_SPEED;
+    } else if(key === 'd' || key === 'D') {
+      player.x += PLAYER_SPEED;
+    } else if(key === 's' || key === 'S') {
+      player.y += PLAYER_SPEED;
+    } else if(key === 'w' || key === 'W') {
+      player.y -= PLAYER_SPEED;
+    }
+    io.emit('playerMoved', player);
+  });
 });
 
 server.listen(PORT, () => {

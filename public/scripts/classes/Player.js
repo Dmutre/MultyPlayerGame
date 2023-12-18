@@ -6,8 +6,9 @@ class Player {
     this.y = window.innerHeight / 2;
   }
 
-  draw(window) {
+  draw() {
     this.element = document.createElement('div');
+    this.element.id = this.id;
     this.element.style.background = '#' + Math.floor(Math.random()*16777215).toString(16);
     this.element.style.zIndex = 10;
     this.element.style.width = '50px';
@@ -17,5 +18,5 @@ class Player {
     this.element.style.left = this.x + 'px';
     this.element.style.top = this.y + 'px';
     return this.element;
-  }
+}
 }
