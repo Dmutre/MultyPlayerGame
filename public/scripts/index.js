@@ -35,6 +35,10 @@ function newPlayer() {
   socket.emit('newPlayer', player);
 }
 
+function connectToRoom() {
+  socket.emit('connectToRoom');
+}
+
 window.addEventListener('keydown', (event) => {
   currentKey += event.key;
 });
@@ -54,4 +58,8 @@ socket.on('playerMoved', (player) => {
   const localPlayer = document.getElementById(player.id);
   localPlayer.style.top = player.y + 'px';
   localPlayer.style.left = player.x + 'px';
+});
+
+socket.on('connectionToRoom', () => {
+  console.log('Connected to room');
 });

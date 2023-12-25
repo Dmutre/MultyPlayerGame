@@ -49,6 +49,12 @@ io.on('connect', (socket) => {
     io.emit('playerMoved', player);
   });
 
+  socket.on('connectToRoom', () => {
+    socket.join('room1');
+    console.log('hello');
+    io.to('room1').emit('connectionToRoom');
+  });
+
   socket.on('disconnect', () => {
     delete backendPlayers[socket.id];
     console.log('I am here');
